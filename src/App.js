@@ -31,7 +31,6 @@ class App extends Component {
               ...snapShot.data()
             }
           });
-          console.log('onSnapshot fired');
         })
       } else {
         this.setState({ currentUser: userAuth });
