@@ -24,11 +24,26 @@ class ShopPage extends Component {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
 
-    collectionRef.onSnapshot(async snapshot => {
+    // 1) Use Observable [stream of data] and subscribe to each new value with out onSnapshot; data updates live from the firebase
+    // collectionRef.onSnapshot(async snapshot => {
+    //   const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+    //   updateCollections(collectionsMap);
+    //   this.setState({loading: false});
+    // });
+
+    // 2) use promises instead; data is getting from the database once - when this component mounts
+    collectionRef.get().then(snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
-      this.setState({loading: false});
+      this.setState({ loading: false });
     });
+
+    // 3) use Fetch API; but it gives us back very nested strcuture, so we're not using it
+    // fetch(
+    //   'https://firestore.googleapis.com/v1/projects/crwn-db-dbad0/databases/(default)/documents/collections'
+    // )
+    // .then(response => response.json())
+    // .then(collections => console.log(collections))
   }
 
   render() {
