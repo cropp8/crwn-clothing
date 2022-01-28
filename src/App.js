@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
@@ -12,25 +12,22 @@ import ShopPage from './pages/shop/shop.component';
 import Auth from './pages/auth/auth.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
-class App extends Component {
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) =>  {
+  useEffect(() => { 
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
-  render() {
-    return (
-      <div>
-        <Header/>
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<Auth/>)} />
-        </Switch>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<Auth />)} />
+      </Switch>
+    </div>
+  );
 }
 
 const mapDispatchToProps = dispatch => ({
