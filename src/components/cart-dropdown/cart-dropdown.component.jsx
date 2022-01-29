@@ -1,13 +1,15 @@
 import './cart-dropdown.styles.scss';
-import { useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
 
-const CartDropdown = ({ history, dispatch }) => {
+const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
   <div className='cart-dropdown'>
@@ -29,4 +31,4 @@ const CartDropdown = ({ history, dispatch }) => {
   </div>
 );}
 
-export default withRouter(CartDropdown);
+export default CartDropdown;
