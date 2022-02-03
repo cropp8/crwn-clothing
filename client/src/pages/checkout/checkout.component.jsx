@@ -30,6 +30,11 @@ const CheckoutPage = ({ cartItems, total }) => (
     <div className='total'>
       <span>TOTAL: ${total}</span>
     </div>
+    <div style={{ color: '#c783ad', fontSize: '22px', textAlign: 'center' }}>
+      Please use this test card:
+      <br />
+      4242 4242 4242 4242 / exp. 01/24 / CW: 123
+    </div>
     <StripeCheckoutButton price={total} />
   </div>
 );
